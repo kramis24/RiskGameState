@@ -19,8 +19,21 @@ public class Territory {
     private Continent continent;
     private String name;
 
+    // default constructor
     public Territory(Continent c, String n) {
 
+        continent = c;
+        name = n;
+    }
+
+    // copy constructor
+    public Territory(Territory t) {
+
+    }
+
+    // adder method for adjacent territories
+    public void addAdjacent(Territory t) {
+        adjacents.add(t);
     }
 
 }
