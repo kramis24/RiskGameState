@@ -18,9 +18,13 @@ public class Territory {
     private int troops;
     private Continent continent;
     private String name;
+    private int owner;
 
     public Territory(Continent c, String n) {
 
     }
 
+    public int getOwner() {
+        return owner;
+    }
 }
