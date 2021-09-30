@@ -3,7 +3,13 @@ package com.example.riskgamestate;
 import java.util.ArrayList;
 
 public class RiskGameState {
-
+    /*need a method/class that will determine how many troops each player gets at the start of their turn
+    * need a dice maybe?
+    * need getters and setters for troops
+    * need setter for owners
+    * maybe setters and getters for continents?
+    * maybe getters and setters for names?
+    */
     public enum phases {
         DEPLOY,
         ATTACK,
@@ -35,16 +41,21 @@ public class RiskGameState {
 
     }
 
-    public boolean deploy(int playerID,Territory t){
-        return true;
+    public boolean deploy(int playerID,Territory t) {
+        if(playerID == t.getOwner()) {
+            return true;
+        }
+        return false;
     }
 
     public boolean fortify(int playerID, Territory t1, Territory t2) {
-
+    if(playerID == t1.getOwner() && playerID == t2.getOwner()) {
         return true;
     }
+        return false;
+    }
 
-    public void viewStats(int id) {
+    public void viewStats() {
 
     }
 
