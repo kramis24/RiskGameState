@@ -27,4 +27,6 @@ public class Territory {
     public int getOwner() {
         return owner;
     }
+
+
 }

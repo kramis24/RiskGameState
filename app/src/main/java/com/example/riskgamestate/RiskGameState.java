@@ -18,6 +18,9 @@ public class RiskGameState {
 
     public static final int MAX_PLAYERS = 4;
     public static final int MIN_PLAYERS = 2;
+    private int playerCount;
+    private int currentTurn = 1;
+    private int currentPhase = 1;
     private ArrayList<Territory> territories;
     private ArrayList<Card> cards;
 
@@ -38,7 +41,6 @@ public class RiskGameState {
         } else {
             return false;
         }
-
     }
 
     public boolean deploy(int playerID,Territory t) {
@@ -68,6 +70,15 @@ public class RiskGameState {
     }
 
     public boolean nextTurn() {
+        if(currentPhase % 3 == 0) {
+            currentPhase = 0;
+
+        } else {
+            currentPhase++;
+        }
+        if(currentTurn/playerCount == 1 ) {
+            currentTurn = 1;
+        }
         return true;
     }
 
