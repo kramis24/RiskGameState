@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class RiskGameState {
     /*need a method/class that will determine how many troops each player gets at the start of their turn
     * need a dice maybe?
+    *
     * need getters and setters for troops
     * need setter for owners
     * maybe setters and getters for continents?
@@ -31,12 +32,10 @@ public class RiskGameState {
     }
 
     public RiskGameState(RiskGameState other) {
-
     }
 
     public boolean attack(int playerID,Territory attacking,Territory attacked) {
         if(playerID == attacking.getOwner() && playerID != attacked.getOwner()) {
-
             return true;
         } else {
             return false;
@@ -50,7 +49,7 @@ public class RiskGameState {
         return false;
     }
 
-    public boolean fortify(int playerID, Territory t1, Territory t2) {
+    public boolean fortify(int playerID, Territory t1, Territory t2, int troops) {
     if(playerID == t1.getOwner() && playerID == t2.getOwner()) {
         return true;
     }
@@ -58,21 +57,17 @@ public class RiskGameState {
     }
 
     public void viewStats() {
-
     }
 
     public void viewHelp() {
-
     }
 
     public void viewCards() {
-
     }
 
     public boolean nextTurn() {
         if(currentPhase % 3 == 0) {
             currentPhase = 0;
-
         } else {
             currentPhase++;
         }
@@ -82,4 +77,8 @@ public class RiskGameState {
         return true;
     }
 
+    public int rollDie() {
+
+        return 0;
+    }
 }

@@ -28,5 +28,13 @@ public class Territory {
         return owner;
     }
 
+    public int getTroops() { return troops; }
+
+    public void setTroops(int troops) {
+        this.troops = troops;
+    }
+    public void setOwner(int owner) {
+        this.owner = owner;
+    }
 
 }
