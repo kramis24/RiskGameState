@@ -14,6 +14,7 @@ public class Territory {
 
     }
 
+
     private ArrayList<Territory> adjacents;
     private int troops;
     private Continent continent;
