@@ -19,8 +19,7 @@ public class RiskGameState {
         FORTIFY
     }
 
-    public static final int MAX_PLAYERS = 4;
-    public static final int MIN_PLAYERS = 2;
+
     private int playerCount;
     private int currentTurn = 1;
     private int currentPhase = 1;
@@ -34,24 +33,27 @@ public class RiskGameState {
         // add adjacents to each territory
     }
 
+
+    //copy constructor for risk
     public RiskGameState(RiskGameState other) {
     }
 
-    public boolean attack(int playerID,Territory attacking,Territory attacked, int troops) {
-        if(playerID == attacking.getOwner() && playerID != attacked.getOwner()) { //checks that the player is not trying to attack themselves
+    public boolean attack(Territory atk,Territory def, int troops) {
+        if(currentTurn == atk.getOwner() && currentTurn != def.getOwner()) { //checks that the player is not trying to attack themselves
             int numRollsAtk;
             int numRollsDef;
-            if (attacking.getTroops() == 2) {
+
+            if (atk.getTroops() == 2) {
                 numRollsAtk = 1;
-            } else if (attacking.getTroops() == 3){
+            } else if (atk.getTroops() == 3){
                 numRollsAtk = 2;
             } else {
                 numRollsAtk = 3;
             }
 
-            if (attacked.getTroops() == 2) {
+            if (def.getTroops() == 2) {
                 numRollsDef = 1;
-            } else if (attacked.getTroops() == 3){
+            } else if (def.getTroops() == 3){
                 numRollsDef = 2;
             } else {
                 numRollsDef = 3;
@@ -59,6 +61,10 @@ public class RiskGameState {
 
             int[] rollsAtk = rollDie(numRollsAtk);
             int[] rollsDef = rollDie(numRollsDef);
+
+            //If atk wins subtract from def
+            //if def wins subtract from atk
+            //if tie subtract from atk
 
             return true;
         } else {
@@ -69,8 +75,8 @@ public class RiskGameState {
     //Adds troops to territories
     //Takes player, territory and number of troops as parameters
     //Returns true if move was legal
-    public boolean deploy(int playerID,Territory t,int troops) {
-        if(playerID == t.getOwner()) { //checks that the current territory is owned by the player
+    public boolean deploy(Territory t,int troops) {
+        if(currentTurn == t.getOwner() && totalTroops - troops > 0) { //checks that the current territory is owned by the player
             t.setTroops(troops);
             totalTroops = totalTroops - troops;
             if (totalTroops <= 0) {
@@ -86,8 +92,8 @@ public class RiskGameState {
     //Moves troops from one territory to another
     //takes the current player, the two territories and the number of troops to send as parameters
     //returns true if move was done successfully
-    public boolean fortify(int playerID, Territory t1, Territory t2, int troops) {
-    if(playerID == t1.getOwner() && playerID == t2.getOwner()) { //checks if both territories are owned by player
+    public boolean fortify(Territory t1, Territory t2, int troops) {
+    if(currentTurn == t1.getOwner() && currentTurn == t2.getOwner()) { //checks if both territories are owned by player
         if (t1.getTroops() - troops > 0) { //makes sure that you cannot send more troops than you have
             t1.setTroops(t1.getTroops() - troops);
             t2.setTroops(troops);
@@ -135,5 +141,16 @@ public class RiskGameState {
             rolls[i] = number;
         }
         return rolls;
+    }
+
+    @Override
+    public String toString()   {
+        for(Territory t: territories) {
+            System.out.println("Territory: " + t.getName());
+            System.out.println("Continent: " + t.getContinent());
+            System.out.println("Number of Troops: " + t.getTroops());
+            System.out.println("Owner: Player " + t.getOwner());
+        }
+        return "abc";
     }
 }
