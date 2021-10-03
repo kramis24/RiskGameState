@@ -5,10 +5,11 @@ import java.util.Random;
 
 public class RiskGameState {
     /*need a method/class that will determine how many troops each player gets at the start of their turn
-    * need a dice maybe?
+    probably in the risk game state constructor
+    * X need a dice maybe X
     *
-    * need getters and setters for troops
-    * need setter for owners
+    * X need getters and setters for troops X
+    * X need setter for owners X
     * maybe setters and getters for continents?
     * maybe getters and setters for names?
     */
@@ -38,6 +39,27 @@ public class RiskGameState {
 
     public boolean attack(int playerID,Territory attacking,Territory attacked, int troops) {
         if(playerID == attacking.getOwner() && playerID != attacked.getOwner()) { //checks that the player is not trying to attack themselves
+            int numRollsAtk;
+            int numRollsDef;
+            if (attacking.getTroops() == 2) {
+                numRollsAtk = 1;
+            } else if (attacking.getTroops() == 3){
+                numRollsAtk = 2;
+            } else {
+                numRollsAtk = 3;
+            }
+
+            if (attacked.getTroops() == 2) {
+                numRollsDef = 1;
+            } else if (attacked.getTroops() == 3){
+                numRollsDef = 2;
+            } else {
+                numRollsDef = 3;
+            }
+
+            int[] rollsAtk = rollDie(numRollsAtk);
+            int[] rollsDef = rollDie(numRollsDef);
+
             return true;
         } else {
             return false;
