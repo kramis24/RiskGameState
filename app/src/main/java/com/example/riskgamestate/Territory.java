@@ -31,6 +31,8 @@ public class Territory {
     // copy constructor
     public Territory(Territory t) {
 
+        this.continent = t.continent;
+        this.name = t.name;
     }
 
     // adder method for adjacent territories

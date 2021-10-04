@@ -36,6 +36,8 @@ public class RiskGameState {
 
     //copy constructor for risk
     public RiskGameState(RiskGameState other) {
+
+        initTerritories();
     }
 
     public boolean attack(Territory atk,Territory def, int troops) {
@@ -152,5 +154,77 @@ public class RiskGameState {
             System.out.println("Owner: Player " + t.getOwner());
         }
         return "abc";
+    }
+
+    /**
+     * initTerritories
+     * LONG helper method for constructor, initializes each territory.
+     */
+    private void initTerritories() {
+
+        // initialize each territory then add it to the list
+        Territory alaska = new Territory(Territory.Continent.NORTH_AMERICA, "Alaska");
+        territories.add(alaska);
+
+        Territory northWestTerritory = new Territory(Territory.Continent.NORTH_AMERICA,
+                "North West Territory");
+        territories.add(northWestTerritory);
+
+        Territory greenland = new Territory(Territory.Continent.NORTH_AMERICA, "Greenland");
+        territories.add(greenland);
+
+        Territory alberta = new Territory(Territory.Continent.NORTH_AMERICA, "Alberta");
+        territories.add(alberta);
+
+        Territory ontario = new Territory(Territory.Continent.NORTH_AMERICA, "Ontario");
+        territories.add(ontario);
+
+        Territory quebec = new Territory(Territory.Continent.NORTH_AMERICA, "Quebec");
+        territories.add(quebec);
+
+        Territory westernUnitedStates = new Territory(Territory.Continent.NORTH_AMERICA,
+                "Western United States");
+        territories.add(westernUnitedStates);
+
+        Territory easternUnitedStates = new Territory(Territory.Continent.NORTH_AMERICA,
+                "Eastern United States");
+        territories.add(easternUnitedStates);
+
+        Territory centralAmerica = new Territory(Territory.Continent.NORTH_AMERICA,
+                "Central America");
+        territories.add(centralAmerica);
+
+        Territory venezuela = new Territory(Territory.Continent.SOUTH_AMERICA, "Venezuela");
+        territories.add(venezuela);
+
+        Territory peru = new Territory(Territory.Continent.SOUTH_AMERICA, "Peru");
+        territories.add(peru);
+
+        Territory brazil = new Territory(Territory.Continent.SOUTH_AMERICA, "Brazil");
+        territories.add(brazil);
+
+        Territory argentina = new Territory(Territory.Continent.SOUTH_AMERICA, "Argentina");
+        territories.add(argentina);
+
+        Territory iceland = new Territory(Territory.Continent.EUROPE, "Iceland");
+        territories.add(iceland);
+
+        Territory scandinavia = new Territory(Territory.Continent.EUROPE, "Scandinavia");
+        territories.add(scandinavia);
+
+        Territory ukraine = new Territory(Territory.Continent.EUROPE, "Ukraine");
+        territories.add(ukraine);
+
+        Territory greatBritain = new Territory(Territory.Continent.EUROPE, "Great Britain");
+        territories.add(greatBritain);
+
+        Territory northernEurope = new Territory(Territory.Continent.EUROPE, "Northern Europe");
+        territories.add(northernEurope);
+
+        Territory westernEurope = new Territory(Territory.Continent.EUROPE, "Western Europe");
+        territories.add(westernEurope);
+
+        Territory southernEurope = new Territory(Territory.Continent.EUROPE, "Southern Europe");
+        territories.add(southernEurope);
     }
 }
