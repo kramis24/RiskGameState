@@ -61,4 +61,12 @@ public class Territory {
         return this.continent;
     }
 
+    public ArrayList<Territory> getAdjacents() {
+        return adjacents;
+    }
+
+    public void addAdjacents(Territory adjacent) {
+        adjacents.add(adjacent);
+    }
+
 }

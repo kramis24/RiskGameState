@@ -232,5 +232,281 @@ public class RiskGameState {
 
         Territory southernEurope = new Territory(Territory.Continent.EUROPE, "Southern Europe");
         territories.add(southernEurope);
+
+        Territory northAfrica = new Territory(Territory.Continent.AFRICA, "North Africa");
+        territories.add(northAfrica);
+
+        Territory congo = new Territory(Territory.Continent.AFRICA, "Congo");
+        territories.add(congo);
+
+        Territory southAfrica = new Territory(Territory.Continent.AFRICA, "South Africa");
+        territories.add(southAfrica);
+
+        Territory madagascar = new Territory(Territory.Continent.AFRICA, "Madagascar");
+        territories.add(madagascar);
+
+        Territory eastAfrica = new Territory(Territory.Continent.AFRICA, "East Africa");
+        territories.add(eastAfrica);
+
+        Territory egypt = new Territory(Territory.Continent.AFRICA, "Egypt");
+        territories.add(egypt);
+
+        Territory middleEast = new Territory(Territory.Continent.ASIA, "Middle East");
+        territories.add(middleEast);
+
+        Territory afghanistan = new Territory(Territory.Continent.ASIA, "Afghanistan");
+        territories.add(afghanistan);
+
+        Territory ural = new Territory(Territory.Continent.ASIA, "Ural");
+        territories.add(ural);
+
+        Territory siberia = new Territory(Territory.Continent.ASIA, "Siberia");
+        territories.add(siberia);
+
+        Territory yakutsk = new Territory(Territory.Continent.ASIA, "Yakutsk");
+        territories.add(yakutsk);
+
+        Territory kamchatka = new Territory(Territory.Continent.ASIA, "Kamchatka");
+        territories.add(kamchatka);
+
+        Territory irkutsk = new Territory(Territory.Continent.ASIA, "Irkutsk");
+        territories.add(irkutsk);
+
+        Territory japan = new Territory(Territory.Continent.ASIA, "Japan");
+        territories.add(japan);
+
+        Territory mongolia = new Territory(Territory.Continent.ASIA, "Mongolia");
+        territories.add(mongolia);
+
+        Territory china = new Territory(Territory.Continent.ASIA, "China");
+        territories.add(china);
+
+        Territory india = new Territory(Territory.Continent.ASIA, "India");
+        territories.add(india);
+
+        Territory siam = new Territory(Territory.Continent.ASIA, "Siam");
+        territories.add(siam);
+
+        Territory indonesia = new Territory(Territory.Continent.OCEANIA, "Indonesia");
+        territories.add(indonesia);
+
+        Territory newGuinea = new Territory(Territory.Continent.OCEANIA, "New Guinea");
+        territories.add(newGuinea);
+
+        Territory easternAustralia = new Territory(Territory.Continent.OCEANIA, "Eastern Australia");
+        territories.add(easternAustralia);
+
+        Territory westernAustralia = new Territory(Territory.Continent.OCEANIA, "Western Australia");
+        territories.add(westernAustralia);
+
+        westernAustralia.addAdjacent(indonesia);
+        westernAustralia.addAdjacent(easternAustralia);
+        westernAustralia.addAdjacent(newGuinea);
+
+        easternAustralia.addAdjacent(westernAustralia);
+        easternAustralia.addAdjacent(newGuinea);
+
+        newGuinea.addAdjacent(easternAustralia);
+        newGuinea.addAdjacent(westernAustralia);
+        newGuinea.addAdjacent(indonesia);
+
+        indonesia.addAdjacent(newGuinea);
+        indonesia.addAdjacent(westernAustralia);
+        indonesia.addAdjacent(siam);
+
+        siam.addAdjacent(indonesia);
+        siam.addAdjacent(india);
+        siam.addAdjacent(china);
+
+        india.addAdjacent(siam);
+        india.addAdjacent(china);
+        india.addAdjacent(afghanistan);
+        india.addAdjacent(middleEast);
+
+        china.addAdjacent(siam);
+        china.addAdjacent(india);
+        china.addAdjacent(afghanistan);
+        china.addAdjacent(ural);
+        china.addAdjacent(siberia);
+        china.addAdjacent(mongolia);
+
+        mongolia.addAdjacent(china);
+        mongolia.addAdjacent(siberia);
+        mongolia.addAdjacent(irkutsk);
+        mongolia.addAdjacent(kamchatka);
+        mongolia.addAdjacent(japan);
+
+        japan.addAdjacent(mongolia);
+        japan.addAdjacent(kamchatka);
+
+        irkutsk.addAdjacent(siberia);
+        irkutsk.addAdjacent(yakutsk);
+        irkutsk.addAdjacent(kamchatka);
+        irkutsk.addAdjacent(mongolia);
+
+        kamchatka.addAdjacent(yakutsk);
+        kamchatka.addAdjacent(irkutsk);
+        kamchatka.addAdjacent(mongolia);
+        kamchatka.addAdjacent(japan);
+        kamchatka.addAdjacent(alaska);
+
+        yakutsk.addAdjacent(kamchatka);
+        yakutsk.addAdjacent(irkutsk);
+        yakutsk.addAdjacent(siberia);
+
+        siberia.addAdjacent(yakutsk);
+        siberia.addAdjacent(irkutsk);
+        siberia.addAdjacent(mongolia);
+        siberia.addAdjacent(china);
+        siberia.addAdjacent(ural);
+
+        ural.addAdjacent(siberia);
+        ural.addAdjacent(china);
+        ural.addAdjacent(afghanistan);
+        ural.addAdjacent(ukraine);
+
+        afghanistan.addAdjacent(ural);
+        afghanistan.addAdjacent(china);
+        afghanistan.addAdjacent(india);
+        afghanistan.addAdjacent(middleEast);
+        afghanistan.addAdjacent(ukraine);
+
+        middleEast.addAdjacent(afghanistan);
+        middleEast.addAdjacent(india);
+        middleEast.addAdjacent(eastAfrica);
+        middleEast.addAdjacent(egypt);
+        middleEast.addAdjacent(southernEurope);
+        middleEast.addAdjacent(ukraine);
+
+        egypt.addAdjacent(middleEast);
+        egypt.addAdjacent(eastAfrica);
+        egypt.addAdjacent(northAfrica);
+        egypt.addAdjacent(southernEurope);
+
+        eastAfrica.addAdjacent(middleEast);
+        eastAfrica.addAdjacent(egypt);
+        eastAfrica.addAdjacent(northAfrica);
+        eastAfrica.addAdjacent(congo);
+        eastAfrica.addAdjacent(southAfrica);
+        eastAfrica.addAdjacent(madagascar);
+
+        madagascar.addAdjacent(eastAfrica);
+        madagascar.addAdjacent(southAfrica);
+
+        southAfrica.addAdjacent(congo);
+        southAfrica.addAdjacent(madagascar);
+        southAfrica.addAdjacent(eastAfrica);
+
+        congo.addAdjacent(northAfrica);
+        congo.addAdjacent(southAfrica);
+        congo.addAdjacent(eastAfrica);
+
+        northAfrica.addAdjacent(westernEurope);
+        northAfrica.addAdjacent(southernEurope);
+        northAfrica.addAdjacent(egypt);
+        northAfrica.addAdjacent(eastAfrica);
+        northAfrica.addAdjacent(congo);
+        northAfrica.addAdjacent(brazil);
+
+        westernEurope.addAdjacent(northAfrica);
+        westernEurope.addAdjacent(southernEurope);
+        westernEurope.addAdjacent(northernEurope);
+        westernEurope.addAdjacent(greatBritain);
+
+        southernEurope.addAdjacent(middleEast);
+        southernEurope.addAdjacent(egypt);
+        southernEurope.addAdjacent(northAfrica);
+        southernEurope.addAdjacent(westernEurope);
+        southernEurope.addAdjacent(northernEurope);
+        southernEurope.addAdjacent(ukraine);
+
+        ukraine.addAdjacent(ural);
+        ukraine.addAdjacent(afghanistan);
+        ukraine.addAdjacent(middleEast);
+        ukraine.addAdjacent(southernEurope);
+        ukraine.addAdjacent(northernEurope);
+        ukraine.addAdjacent(scandinavia);
+
+        scandinavia.addAdjacent(ukraine);
+        scandinavia.addAdjacent(northernEurope);
+        scandinavia.addAdjacent(greatBritain);
+        scandinavia.addAdjacent(iceland);
+
+        northernEurope.addAdjacent(scandinavia);
+        northernEurope.addAdjacent(ukraine);
+        northernEurope.addAdjacent(southernEurope);
+        northernEurope.addAdjacent(westernEurope);
+        northernEurope.addAdjacent(greatBritain);
+
+        greatBritain.addAdjacent(westernEurope);
+        greatBritain.addAdjacent(northernEurope);
+        greatBritain.addAdjacent(scandinavia);
+        greatBritain.addAdjacent(iceland);
+
+        iceland.addAdjacent(scandinavia);
+        iceland.addAdjacent(greatBritain);
+        iceland.addAdjacent(greenland);
+
+        greenland.addAdjacent(iceland);
+        greenland.addAdjacent(northWestTerritory);
+        greenland.addAdjacent(ontario);
+        greenland.addAdjacent(quebec);
+
+        northWestTerritory.addAdjacent(greenland);
+        northWestTerritory.addAdjacent(alaska);
+        northWestTerritory.addAdjacent(alberta);
+        northWestTerritory.addAdjacent(ontario);
+
+        alaska.addAdjacent(kamchatka);
+        alaska.addAdjacent(northWestTerritory);
+        alaska.addAdjacent(alberta);
+
+        alberta.addAdjacent(alaska);
+        alberta.addAdjacent(northWestTerritory);
+        alberta.addAdjacent(westernUnitedStates);
+        alberta.addAdjacent(ontario);
+
+        ontario.addAdjacent(westernUnitedStates);
+        ontario.addAdjacent(alberta);
+        ontario.addAdjacent(northWestTerritory);
+        ontario.addAdjacent(greenland);
+        ontario.addAdjacent(quebec);
+        ontario.addAdjacent(easternUnitedStates);
+
+        quebec.addAdjacent(greenland);
+        quebec.addAdjacent(ontario);
+        quebec.addAdjacent(easternUnitedStates);
+
+        easternUnitedStates.addAdjacent(quebec);
+        easternUnitedStates.addAdjacent(ontario);
+        easternUnitedStates.addAdjacent(westernUnitedStates);
+        easternUnitedStates.addAdjacent(centralAmerica);
+
+        westernUnitedStates.addAdjacent(alberta);
+        westernUnitedStates.addAdjacent(ontario);
+        westernUnitedStates.addAdjacent(easternUnitedStates);
+        westernUnitedStates.addAdjacent(centralAmerica);
+
+        centralAmerica.addAdjacent(westernUnitedStates);
+        centralAmerica.addAdjacent(easternUnitedStates);
+        centralAmerica.addAdjacent(venezuela);
+
+        venezuela.addAdjacent(centralAmerica);
+        venezuela.addAdjacent(brazil);
+        venezuela.addAdjacent(peru);
+
+        peru.addAdjacent(venezuela);
+        peru.addAdjacent(brazil);
+        peru.addAdjacent(argentina);
+
+        argentina.addAdjacent(peru);
+        argentina.addAdjacent(brazil);
+
+        brazil.addAdjacent(venezuela);
+        brazil.addAdjacent(peru);
+        brazil.addAdjacent(argentina);
+        brazil.addAdjacent(northAfrica);
+
+
     }
 }
