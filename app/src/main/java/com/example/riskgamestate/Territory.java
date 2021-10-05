@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class Territory {
 
+    /** @author Phi Nguyen, Dylan Kramis, Charlie Benning
+     *
+     */
     public enum Continent {
         NORTH_AMERICA,
         SOUTH_AMERICA,

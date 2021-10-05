@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RiskGameState {
-    /** need a method/class that will determine how many troops each player gets at the start of their turn
+    /**
+     * @author Phi Nguyen, Dylan Kramis, Charlie Benning
+     * need a method/class that will determine how many troops each player gets at the start of their turn
     probably in the risk game state constructor
     * X need a dice maybe X
     *
@@ -25,19 +27,26 @@ public class RiskGameState {
     private int currentPhase = 1;
     private int totalTroops = 0;
     private ArrayList<Territory> territories;
-    private ArrayList<Card> cards;
 
 
     public RiskGameState() {
         // initialize territories
         // add adjacents to each territory
+        initTerritories();
     }
 
 
     //copy constructor for risk
     public RiskGameState(RiskGameState other) {
+        currentTurn = other.currentTurn;
+        playerCount = other.playerCount;
+        currentPhase = other.currentPhase;
+        totalTroops = other.totalTroops;
 
-        initTerritories();
+        for(int i = 0; i < other.territories.size(); i++) {
+            territories.set(i, other.territories.get(i));
+        }
+
     }
 
     public boolean attack(Territory atk,Territory def, int troops) {
@@ -153,12 +162,17 @@ public class RiskGameState {
 
     @Override
     public String toString()   {
+
+         System.out.println("Current Phase: " + currentPhase);
+         System.out.println("Current Turn: " + currentTurn);
+
         for(Territory t: territories) {
             System.out.println("Territory: " + t.getName());
             System.out.println("Continent: " + t.getContinent());
             System.out.println("Number of Troops: " + t.getTroops());
             System.out.println("Owner: Player " + t.getOwner());
         }
+
         return "abc";
     }
 
