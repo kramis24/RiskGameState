@@ -1,12 +1,17 @@
 package com.example.riskgamestate;
+/**
+ * Territory
+ * Variables and methods for individual territories.
+ *
+ * @author Phi Nguyen, Dylan Kramis, Charlie Benning
+ * @version 10/6/2021
+ */
 
 import java.util.ArrayList;
 
 public class Territory {
 
-    /** @author Phi Nguyen, Dylan Kramis, Charlie Benning
-     *
-     */
+
     public enum Continent {
         NORTH_AMERICA,
         SOUTH_AMERICA,
