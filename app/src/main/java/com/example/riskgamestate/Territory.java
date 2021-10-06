@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class Territory {
 
+    /** @author Phi Nguyen, Dylan Kramis, Charlie Benning
+     *
+     */
     public enum Continent {
         NORTH_AMERICA,
         SOUTH_AMERICA,
@@ -59,6 +62,14 @@ public class Territory {
 
     public Continent getContinent() {
         return this.continent;
+    }
+
+    public ArrayList<Territory> getAdjacents() {
+        return adjacents;
+    }
+
+    public void addAdjacents(Territory adjacent) {
+        adjacents.add(adjacent);
     }
 
 }
