@@ -40,6 +40,48 @@ public class RiskGameState {
         initTerritories();
     }
 
+    public int calcTroops(int player) {
+        int territoryCount = 0;
+        int[] territoryCounts = new int[6];
+        for (int i = 0; i < territories.size(); i++) {
+            if (territories.get(i).getOwner() == player) {
+                territoryCount++;
+                territoryCounts[territories.get(i).getContinent().ordinal()]++;
+            }
+        }
+
+        territoryCount = ((territoryCount - 11)/3) + 3;
+
+        if (territoryCounts[Territory.Continent.ASIA.ordinal()] == 12) {
+            territoryCount = territoryCount + 7;
+        }
+        if (territoryCounts[Territory.Continent.AFRICA.ordinal()] == 6) {
+            territoryCount = territoryCount + 3;
+        }
+        if (territoryCounts[Territory.Continent.SOUTH_AMERICA.ordinal()] == 4) {
+            territoryCount = territoryCount + 2;
+        }
+        if (territoryCounts[Territory.Continent.NORTH_AMERICA.ordinal()] == 9) {
+            territoryCount = territoryCount + 5;
+        }
+        if (territoryCounts[Territory.Continent.EUROPE.ordinal()] == 7) {
+            territoryCount = territoryCount + 5;
+        }
+        if (territoryCounts[Territory.Continent.OCEANIA.ordinal()] == 4) {
+            territoryCount = territoryCount + 2;
+        }
+
+        return territoryCount;
+    }
+
+   // public int addTroop(Territory t) {
+     //   t.addTroop(4);
+    //}
+
+
+    //initialize begingin troops
+    //intitialize territories or each player
+
     public boolean attack(Territory atk,Territory def, int troops) {
         if(currentTurn == atk.getOwner() && currentTurn != def.getOwner()) { //checks that the player is not trying to attack themselves
             int numRollsAtk;
@@ -168,6 +210,7 @@ public class RiskGameState {
      */
     private void initTerritories() {
 
+        //Tribelhorn Approved this message
         // initialize each territory then add it to the list
         Territory alaska = new Territory(Territory.Continent.NORTH_AMERICA, "Alaska");
         territories.add(alaska);
