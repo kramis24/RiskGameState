@@ -130,7 +130,7 @@ public class RiskGameState {
 
                 if(def.getTroops() == 0) {
                     def.setOwner(atk.getOwner());
-
+                    occupy(def,1); //1 is a placeholder
                 }
 
 
@@ -153,6 +153,16 @@ public class RiskGameState {
             if (totalTroops <= 0) {
                 nextTurn();
             }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean occupy(Territory t,int troops) {
+        if(currentTurn == t.getOwner()) { //checks that the current territory is owned by the player
+            t.setTroops(troops);
+            t.setTroops(t.getTroops() - troops);
+            nextTurn();
             return true;
         }
         return false;
