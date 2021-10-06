@@ -14,13 +14,13 @@ import java.util.Random;
 
 public class RiskGameState {
 
-    public enum phases {
+    public enum Phases {
         DEPLOY,
         ATTACK,
         FORTIFY
     }
 
-    public enum card {
+    public enum Card {
         INFANTRY,
         ARTILLERY,
         CAVALRY
