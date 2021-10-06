@@ -247,13 +247,14 @@ public class RiskGameState {
     @Override
     public String toString()   {
 
-         String info = "Current Phase: " + currentPhase + "\n" + " Current Turn: " + currentTurn;
-
+         String info = "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n";
+            info = info + "____________________________ \n";
         for(Territory t: territories) {
-            info = "Territory: " + t.getName() + "\n";
+            info = info + "Territory: " + t.getName() + "\n";
             info = info + "Continent: " + t.getContinent() + "\n";
             info = info + "Number of Troops: " + t.getTroops() + "\n";
             info = info + "Owner: Player " + t.getOwner() + "\n";
+            info = info + "________________________________ \n";
         }
 
         return info;
