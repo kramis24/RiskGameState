@@ -26,7 +26,7 @@ public class RiskGameState {
         CAVALRY
     }
 
-    private int playerCount;
+    private int playerCount = 1;
     private int currentTurn = 1;
     private Phase currentPhase = Phase.DEPLOY;
     private int totalTroops = 0;
@@ -49,7 +49,6 @@ public class RiskGameState {
         // initialize territories array list
         territories = new ArrayList<Territory>();
 
-
         // copying variables
         this.currentTurn = other.currentTurn;
         this.playerCount = other.playerCount;
@@ -68,7 +67,7 @@ public class RiskGameState {
             }
         }
 
-        territoryCount = ((territoryCount - 11)/3) + 3;
+        territoryCount = ((territoryCount - 11) / 3) + 3;
 
         if (territoryCounts[Territory.Continent.ASIA.ordinal()] == 12) {
             territoryCount = territoryCount + 7;
@@ -92,19 +91,21 @@ public class RiskGameState {
         return territoryCount;
     }
 
-   // public int addTroop(Territory t) {
-     //   t.addTroop(4);
+    // public int addTroop(Territory t) {
+    //   t.addTroop(4);
     //}
 
 
     //initialize begingin troops
     //intitialize territories or each player
 
-    public boolean attack(Territory atk,Territory def, int troops) {
-        if(currentTurn == atk.getOwner() && currentTurn != def.getOwner()) { //checks that the player is not trying to attack themselves
-            if(atk.getAdjacents().contains(def)) {
+    public boolean attack(Territory atk, Territory def) {
+        if (currentTurn == atk.getOwner() && currentTurn != def.getOwner()) { //checks that the player is not trying to attack themselves
+            if (atk.getAdjacents().contains(def)) { //checks if two territories are adjacent
                 int numRollsAtk;
                 int numRollsDef;
+
+                //determines how many die the attacker has
                 if (atk.getTroops() >= 4) {
                     numRollsAtk = 3;
                 } else if (atk.getTroops() >= 3) {
@@ -113,30 +114,37 @@ public class RiskGameState {
                     numRollsAtk = 1;
                 }
 
+                //determines how many die the defender has
                 if (def.getTroops() >= 3) {
                     numRollsDef = 2;
                 } else {
                     numRollsDef = 1;
                 }
 
+                //stores the die rolls into arraylist
                 ArrayList<Integer> rollsAtk = new ArrayList<>();
                 ArrayList<Integer> rollsDef = new ArrayList<>();
 
+                //sorts the die rolls
                 Collections.sort(rollsAtk);
                 Collections.sort(rollsDef);
 
-                if(numRollsAtk == 1) { numRollsDef = numRollsAtk;}
-                    for(int i = 0; i < numRollsDef; i++) {
-                        if (rollsAtk.get(i) > rollsDef.get(i)) {
-                            def.setTroops(def.getTroops() - 1);
-                        } else if (rollsAtk.get(i) >= rollsDef.get(i)) {
-                            atk.setTroops(atk.getTroops() - 1);
-                        }
+                //compares the die rolls of the two players
+                if (numRollsAtk == 1) {
+                    numRollsDef = numRollsAtk;
+                }
+                for (int i = 0; i < numRollsDef; i++) {
+                    if (rollsAtk.get(i) > rollsDef.get(i)) {
+                        def.setTroops(def.getTroops() - 1);
+                    } else if (rollsAtk.get(i) >= rollsDef.get(i)) {
+                        atk.setTroops(atk.getTroops() - 1);
                     }
+                }
 
-                if(def.getTroops() == 0) {
+                //if changes ownership of a territory if troops are 0
+                if (def.getTroops() == 0) {
                     def.setOwner(atk.getOwner());
-                    occupy(def,1); //1 is a placeholder
+                    occupy(def, 1); //1 is a placeholder
                 }
             }
             return true;
@@ -145,13 +153,14 @@ public class RiskGameState {
         }
     }
 
-    /** Adds troops to territories
-    * Takes player, territory and number of troops as parameters
-    * Returns true if move was legal
-    **/
+    /**
+     * Adds troops to territories
+     * Takes player, territory and number of troops as parameters
+     * Returns true if move was legal
+     **/
     //for occupy change total troops to terriories troop
-    public boolean deploy(Territory t,int troops) {
-        if(currentTurn == t.getOwner() && totalTroops - troops > 0) { //checks that the current territory is owned by the player
+    public boolean deploy(Territory t, int troops) {
+        if (currentTurn == t.getOwner() && totalTroops - troops > 0) { //checks that the current territory is owned by the player
             t.setTroops(troops);
             totalTroops = totalTroops - troops;
             if (totalTroops <= 0) {
@@ -162,8 +171,8 @@ public class RiskGameState {
         return false;
     }
 
-    public boolean occupy(Territory t,int troops) {
-        if(currentTurn == t.getOwner()) { //checks that the current territory is owned by the player
+    public boolean occupy(Territory t, int troops) {
+        if (currentTurn == t.getOwner()) { //checks that the current territory is owned by the player
             t.setTroops(troops);
             t.setTroops(t.getTroops() - troops);
             nextTurn();
@@ -173,26 +182,27 @@ public class RiskGameState {
     }
 
 
-    /** ADD: add the ability to move through connected territories Probably Hardest part of fortify method
-    *   Moves troops from one territory to another
-    *   takes the current player, the two territories and the number of troops to send as parameters
-    *   returns true if move was done successfully
-    **/
-     public boolean fortify(Territory t1, Territory t2, int troops) {
-    if(currentTurn == t1.getOwner() && currentTurn == t2.getOwner()) { //checks if both territories are owned by player
-        if (t1.getTroops() - troops >  1) { //makes sure that you cannot send more troops than you have
-            t1.setTroops(t1.getTroops() - troops);
-            t2.setTroops(t2.getTroops() + troops);
-            nextTurn();
-            return true;
-        } else {
-            return false;
+    /**
+     * ADD: add the ability to move through connected territories Probably Hardest part of fortify method
+     * Moves troops from one territory to another
+     * takes the current player, the two territories and the number of troops to send as parameters
+     * returns true if move was done successfully
+     **/
+    public boolean fortify(Territory t1, Territory t2, int troops) {
+        if (currentTurn == t1.getOwner() && currentTurn == t2.getOwner()) { //checks if both territories are owned by player
+            if (t1.getTroops() - troops > 1) { //makes sure that you cannot send more troops than you have
+                t1.setTroops(t1.getTroops() - troops);
+                t2.setTroops(t2.getTroops() + troops);
+                nextTurn();
+                return true;
+            } else {
+                return false;
+            }
         }
-    }
         return false;
     }
 
-    /* No GUI yet so
+    /* No GUI yet so these methods cannot be implemented
     public void viewStats() {
     }
 
@@ -203,40 +213,35 @@ public class RiskGameState {
     }
     */
 
-    /** advances turn/phase
+    /**
+     * advances turn/phase
      * returns true if turn was advanced
-    **/
+     **/
     public boolean nextTurn() {
-
-
         if (currentPhase == Phase.DEPLOY) {
             currentPhase = Phase.ATTACK;
-        }
-        else if (currentPhase == Phase.ATTACK) {
+        } else if (currentPhase == Phase.ATTACK) {
             currentPhase = Phase.FORTIFY;
-        }
-        else {
+        } else {
             currentPhase = Phase.DEPLOY;
-        }
-
-        if(currentTurn/playerCount == 1 ) {
-            currentTurn = 1;
-        }
-        else {
             currentTurn++;
+        }
+        if (currentTurn / playerCount == 1) {
+            currentTurn = 1;
         }
 
         return true;
     }
 
 
-    /**rolls dice
-    * takes the number of rolls as parameters
-    * returns array with rolls in it
-    **/
-     public ArrayList<Integer> rollDie(int numRolls) {
+    /**
+     * rolls dice
+     * takes the number of rolls as parameters
+     * returns array with rolls in it
+     **/
+    public ArrayList<Integer> rollDie(int numRolls) {
         ArrayList<Integer> rolls = new ArrayList<>();
-        for(int i = 0; i < numRolls; i++) {
+        for (int i = 0; i < numRolls; i++) {
             Random die = new Random();
             int number = die.nextInt(6);
             rolls.add(number);
@@ -245,18 +250,21 @@ public class RiskGameState {
     }
 
     @Override
-    public String toString()   {
+    /**
+     * Returns all the information about the current game state
+     *
+     */
+    public String toString() {
 
-         String info = "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n";
-            info = info + "____________________________ \n";
-        for(Territory t: territories) {
+        String info = "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n";
+        info = info + "____________________________ \n";
+        for (Territory t : territories) {
             info = info + "Territory: " + t.getName() + "\n";
             info = info + "Continent: " + t.getContinent() + "\n";
             info = info + "Number of Troops: " + t.getTroops() + "\n";
             info = info + "Owner: Player " + t.getOwner() + "\n";
             info = info + "________________________________ \n";
         }
-
         return info;
     }
 
@@ -608,5 +616,10 @@ public class RiskGameState {
         brazil.addAdjacent(northAfrica);
 
 
+    }
+
+
+    public ArrayList<Territory> getT() {
+        return this.territories;
     }
 }
