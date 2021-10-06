@@ -1,4 +1,11 @@
 package com.example.riskgamestate;
+/**
+ * RiskGameState
+ * Game state variables and methods for Risk game.
+ *
+ * @author Phi Nguyen, Dylan Kramis, Charlie Benning
+ * @version 10/6/2021
+ */
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -6,23 +13,18 @@ import java.util.Collections;
 import java.util.Random;
 
 public class RiskGameState {
-    /**
-     * @author Phi Nguyen, Dylan Kramis, Charlie Benning
-     * need a method/class that will determine how many troops each player gets at the start of their turn
-    probably in the risk game state constructor
-    * X need a dice maybe X
-    *
-    * X need getters and setters for troops X
-    * X need setter for owners X
-    * maybe setters and getters for continents?
-    * maybe getters and setters for names?
-    **/
-    public enum phases {
+
+    public enum Phases {
         DEPLOY,
         ATTACK,
         FORTIFY
     }
 
+    public enum Card {
+        INFANTRY,
+        ARTILLERY,
+        CAVALRY
+    }
 
     private int playerCount;
     private int currentTurn = 1;
@@ -32,8 +34,11 @@ public class RiskGameState {
 
 
     public RiskGameState() {
-        // initialize territories
-        // add adjacents to each territory
+
+        // initialize territories array list
+        territories = new ArrayList<Territory>();
+
+        // initialize territories and add adjacents to each territory
         initTerritories();
     }
 
@@ -248,7 +253,7 @@ public class RiskGameState {
      */
     private void initTerritories() {
 
-        //Tribelhorn Approved this message
+        // Tribelhorn Approved this message
         // initialize each territory then add it to the list
         Territory alaska = new Territory(Territory.Continent.NORTH_AMERICA, "Alaska");
         territories.add(alaska);
@@ -380,8 +385,7 @@ public class RiskGameState {
         Territory westernAustralia = new Territory(Territory.Continent.OCEANIA, "Western Australia");
         territories.add(westernAustralia);
 
-
-        //sets the adjacent territories
+        // adding adjacents for each territory
         westernAustralia.addAdjacent(indonesia);
         westernAustralia.addAdjacent(easternAustralia);
         westernAustralia.addAdjacent(newGuinea);

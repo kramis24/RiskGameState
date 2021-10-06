@@ -1,15 +1,24 @@
 package com.example.riskgamestate;
+/**
+ * MainActivity
+ * Sets layouts and runs tests.
+ *
+ * @author Phi Nguyen, Dylan Kramis, Charlie Benning
+ * @version 10/6/2021
+ */
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     /**
-     * @author Phi Nguyen, Dylan Kramis, Charlie Benning
+     *
+     *
      * @param savedInstanceState
      */
     @Override
@@ -17,13 +26,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // initializes layout elements
         Button testButton = findViewById(R.id.runTest);
         TextView testView = findViewById(R.id.testView);
+        testButton.setOnClickListener(this);
 
      }
 
     @Override
     public void onClick(View view) {
+
+        // switches to a content view with the output log
+        setContentView(R.layout.output_log);
+        EditText outputText = findViewById(R.id.outputText);
+
+
+        // runs tests
+        outputText.append("Starting tests.\n");
         RiskGameState firstInstance = new RiskGameState();
         RiskGameState secondInstance = new RiskGameState(firstInstance);
     }
