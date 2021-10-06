@@ -26,16 +26,21 @@ public class Territory {
 
     // default constructor
     public Territory(Continent c, String n) {
-
         continent = c;
         name = n;
+        troops = 0;
+        owner = -1;
     }
 
     // copy constructor
     public Territory(Territory t) {
-
         this.continent = t.continent;
         this.name = t.name;
+        this.owner = t.owner;
+        this.troops = t.troops;
+        for(int i = 0; i < t.adjacents.size(); i++) {
+            this.adjacents.add(t.adjacents.get(i));
+        }
     }
 
     // adder method for adjacent territories

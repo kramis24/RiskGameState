@@ -313,6 +313,8 @@ public class RiskGameState {
         Territory westernAustralia = new Territory(Territory.Continent.OCEANIA, "Western Australia");
         territories.add(westernAustralia);
 
+
+        //sets the adjacent territories
         westernAustralia.addAdjacent(indonesia);
         westernAustralia.addAdjacent(easternAustralia);
         westernAustralia.addAdjacent(newGuinea);
