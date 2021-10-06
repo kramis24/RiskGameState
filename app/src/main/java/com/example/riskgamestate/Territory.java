@@ -8,6 +8,7 @@ package com.example.riskgamestate;
  */
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Territory {
 
@@ -44,7 +45,7 @@ public class Territory {
         adjacents = new ArrayList<Territory>();
         continent = c;
         name = n;
-        troops = 0;
+        troops = 10;
         owner = -1;
     }
 
@@ -138,7 +139,7 @@ public class Territory {
      * getAdjacents
      * Gets the list of adjacent territories.
      *
-     * @return list of adjacnt territories
+     * @return list of adjacent territories
      */
     public ArrayList<Territory> getAdjacents() {
         return adjacents;

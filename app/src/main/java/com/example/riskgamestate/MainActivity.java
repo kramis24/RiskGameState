@@ -15,9 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     /**
-     *
+     * MainActivity
      *
      * @param savedInstanceState
      */
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button testButton = findViewById(R.id.runTest);
         TextView testView = findViewById(R.id.testView);
         testButton.setOnClickListener(this);
-
      }
 
     @Override
@@ -44,6 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // runs tests
         outputText.append("Starting tests.\n");
         RiskGameState firstInstance = new RiskGameState();
+        ArrayList<Territory> territories = firstInstance.getT();
+        firstInstance.nextTurn();
+        firstInstance.nextTurn();
+        firstInstance.nextTurn();
         RiskGameState secondInstance = new RiskGameState(firstInstance);
+        outputText.setText(firstInstance.toString());
+        outputText.append(secondInstance.toString());
     }
 }
