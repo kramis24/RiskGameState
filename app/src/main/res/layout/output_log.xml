@@ -14,6 +14,6 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:text="Begin test.\n" />
+        android:text="Output:\n" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

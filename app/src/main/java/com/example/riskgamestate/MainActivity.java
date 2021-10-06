@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        // switches to a content view with an output log
+        // switches to a content view with the output log
         setContentView(R.layout.output_log);
         EditText outputText = findViewById(R.id.outputText);
 
