@@ -73,8 +73,4 @@ public class Territory {
         return adjacents;
     }
 
-    public void addAdjacents(Territory adjacent) {
-        adjacents.add(adjacent);
-    }
-
 }
