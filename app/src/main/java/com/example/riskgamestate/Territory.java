@@ -31,6 +31,7 @@ public class Territory {
 
     // default constructor
     public Territory(Continent c, String n) {
+        adjacents = new ArrayList<Territory>();
         continent = c;
         name = n;
         troops = 0;

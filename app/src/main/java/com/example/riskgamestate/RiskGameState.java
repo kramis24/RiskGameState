@@ -34,8 +34,11 @@ public class RiskGameState {
 
 
     public RiskGameState() {
-        // initialize territories
-        // add adjacents to each territory
+
+        // initialize territories array list
+        territories = new ArrayList<Territory>();
+
+        // initialize territories and add adjacents to each territory
         initTerritories();
     }
 
@@ -253,7 +256,7 @@ public class RiskGameState {
      */
     private void initTerritories() {
 
-        //Tribelhorn Approved this message
+        // Tribelhorn Approved this message
         // initialize each territory then add it to the list
         Territory alaska = new Territory(Territory.Continent.NORTH_AMERICA, "Alaska");
         territories.add(alaska);
