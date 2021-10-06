@@ -1,6 +1,8 @@
 package com.example.riskgamestate;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class RiskGameState {
@@ -51,32 +53,46 @@ public class RiskGameState {
 
     public boolean attack(Territory atk,Territory def, int troops) {
         if(currentTurn == atk.getOwner() && currentTurn != def.getOwner()) { //checks that the player is not trying to attack themselves
-            int numRollsAtk;
-            int numRollsDef;
+            if(atk.getAdjacents().contains(def)) {
+                int numRollsAtk;
+                int numRollsDef;
+                if (atk.getTroops() >= 4) {
+                    numRollsAtk = 3;
+                } else if (atk.getTroops() >= 3) {
+                    numRollsAtk = 2;
+                } else {
+                    numRollsAtk = 1;
+                }
 
-            if (atk.getTroops() == 2) {
-                numRollsAtk = 1;
-            } else if (atk.getTroops() == 3){
-                numRollsAtk = 2;
-            } else {
-                numRollsAtk = 3;
+                if (def.getTroops() >= 3) {
+                    numRollsDef = 2;
+                } else {
+                    numRollsDef = 1;
+                }
+
+
+                ArrayList<Integer> rollsAtk = new ArrayList<>();
+                ArrayList<Integer> rollsDef = new ArrayList<>();
+
+                Collections.sort(rollsAtk);
+                Collections.sort(rollsDef);
+
+                if(numRollsAtk == 1) { numRollsDef = numRollsAtk;}
+                    for(int i = 0; i < numRollsDef; i++) {
+                        if (rollsAtk.get(i) > rollsDef.get(i)) {
+                            def.setTroops(def.getTroops() - 1);
+                        } else if (rollsAtk.get(i) >= rollsDef.get(i)) {
+                            atk.setTroops(atk.getTroops() - 1);
+                        }
+                    }
+
+                if(def.getTroops() == 0) {
+                    def.setOwner(atk.getOwner());
+
+                }
+
+
             }
-
-            if (def.getTroops() == 2) {
-                numRollsDef = 1;
-            } else if (def.getTroops() == 3){
-                numRollsDef = 2;
-            } else {
-                numRollsDef = 3;
-            }
-
-            int[] rollsAtk = rollDie(numRollsAtk);
-            int[] rollsDef = rollDie(numRollsDef);
-
-            //If atk wins subtract from def
-            //if def wins subtract from atk
-            //if tie subtract from atk
-
             return true;
         } else {
             return false;
@@ -87,6 +103,7 @@ public class RiskGameState {
     * Takes player, territory and number of troops as parameters
     * Returns true if move was legal
     **/
+    //for occupy change total troops to terriories troop
      public boolean deploy(Territory t,int troops) {
         if(currentTurn == t.getOwner() && totalTroops - troops > 0) { //checks that the current territory is owned by the player
             t.setTroops(troops);
@@ -150,12 +167,12 @@ public class RiskGameState {
     * takes the number of rolls as parameters
     * returns array with rolls in it
     **/
-     public int[] rollDie(int numRolls) {
-        int[] rolls = new int[numRolls];
+     public ArrayList<Integer> rollDie(int numRolls) {
+        ArrayList<Integer> rolls = new ArrayList<>();
         for(int i = 0; i < numRolls; i++) {
             Random die = new Random();
             int number = die.nextInt(6);
-            rolls[i] = number;
+            rolls.add(number);
         }
         return rolls;
     }
