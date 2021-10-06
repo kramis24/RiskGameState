@@ -190,7 +190,7 @@ public class RiskGameState {
         return false;
     }
 
-    /*
+    /* No GUI yet so
     public void viewStats() {
     }
 
@@ -234,17 +234,16 @@ public class RiskGameState {
     @Override
     public String toString()   {
 
-         System.out.println("Current Phase: " + currentPhase);
-         System.out.println("Current Turn: " + currentTurn);
+         String info = "Current Phase: " + currentPhase + "\n" + " Current Turn: " + currentTurn;
 
         for(Territory t: territories) {
-            System.out.println("Territory: " + t.getName());
-            System.out.println("Continent: " + t.getContinent());
-            System.out.println("Number of Troops: " + t.getTroops());
-            System.out.println("Owner: Player " + t.getOwner());
+            info = "Territory: " + t.getName() + "\n";
+            info = info + "Continent: " + t.getContinent() + "\n";
+            info = info + "Number of Troops: " + t.getTroops() + "\n";
+            info = info + "Owner: Player " + t.getOwner() + "\n";
         }
 
-        return "abc";
+        return info;
     }
 
     /**

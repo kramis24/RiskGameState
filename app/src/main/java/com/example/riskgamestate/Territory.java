@@ -138,7 +138,7 @@ public class Territory {
      * getAdjacents
      * Gets the list of adjacent territories.
      *
-     * @return list of adjacnt territories
+     * @return list of adjacent territories
      */
     public ArrayList<Territory> getAdjacents() {
         return adjacents;

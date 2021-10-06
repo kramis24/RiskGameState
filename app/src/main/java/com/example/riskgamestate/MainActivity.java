@@ -45,5 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outputText.append("Starting tests.\n");
         RiskGameState firstInstance = new RiskGameState();
         RiskGameState secondInstance = new RiskGameState(firstInstance);
+        secondInstance.toString();
     }
 }
