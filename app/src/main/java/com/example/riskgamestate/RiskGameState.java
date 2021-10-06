@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class RiskGameState {
 
-    public enum Phases {
+    public enum Phase {
         DEPLOY,
         ATTACK,
         FORTIFY
@@ -28,7 +28,7 @@ public class RiskGameState {
 
     private int playerCount;
     private int currentTurn = 1;
-    private int currentPhase = 1;
+    private Phase currentPhase = Phase.DEPLOY;
     private int totalTroops = 0;
     private ArrayList<Territory> territories;
 
@@ -45,15 +45,17 @@ public class RiskGameState {
 
     //copy constructor for risk
     public RiskGameState(RiskGameState other) {
-        currentTurn = other.currentTurn;
-        playerCount = other.playerCount;
-        currentPhase = other.currentPhase;
-        totalTroops = other.totalTroops;
 
-        for(int i = 0; i < other.territories.size(); i++) {
-            territories.set(i, other.territories.get(i));
-        }
+        // initialize territories array list
+        territories = new ArrayList<Territory>();
 
+
+        // copying variables
+        this.currentTurn = other.currentTurn;
+        this.playerCount = other.playerCount;
+        this.currentPhase = other.currentPhase;
+        this.totalTroops = other.totalTroops;
+        this.territories.addAll(other.territories);
     }
 
     public int calcTroops(int player) {
@@ -148,7 +150,7 @@ public class RiskGameState {
     * Returns true if move was legal
     **/
     //for occupy change total troops to terriories troop
-     public boolean deploy(Territory t,int troops) {
+    public boolean deploy(Territory t,int troops) {
         if(currentTurn == t.getOwner() && totalTroops - troops > 0) { //checks that the current territory is owned by the player
             t.setTroops(troops);
             totalTroops = totalTroops - troops;
@@ -204,15 +206,26 @@ public class RiskGameState {
     /** advances turn/phase
      * returns true if turn was advanced
     **/
-     public boolean nextTurn() {
-        if(currentPhase % 3 == 0) {
-            currentPhase = 0;
-        } else {
-            currentPhase++;
+    public boolean nextTurn() {
+
+
+        if (currentPhase == Phase.DEPLOY) {
+            currentPhase = Phase.ATTACK;
         }
+        else if (currentPhase == Phase.ATTACK) {
+            currentPhase = Phase.FORTIFY;
+        }
+        else {
+            currentPhase = Phase.DEPLOY;
+        }
+
         if(currentTurn/playerCount == 1 ) {
             currentTurn = 1;
         }
+        else {
+            currentTurn++;
+        }
+
         return true;
     }
 
