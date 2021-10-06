@@ -119,7 +119,6 @@ public class RiskGameState {
                     numRollsDef = 1;
                 }
 
-
                 ArrayList<Integer> rollsAtk = new ArrayList<>();
                 ArrayList<Integer> rollsDef = new ArrayList<>();
 
@@ -139,8 +138,6 @@ public class RiskGameState {
                     def.setOwner(atk.getOwner());
                     occupy(def,1); //1 is a placeholder
                 }
-
-
             }
             return true;
         } else {
