@@ -8,6 +8,7 @@ package com.example.riskgamestate;
  */
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Territory {
 
@@ -31,6 +32,7 @@ public class Territory {
     private Continent continent;
     private String name;
     private int owner;
+    public boolean checked;
 
     /**
      * Default constructor for Territory.
@@ -44,8 +46,9 @@ public class Territory {
         adjacents = new ArrayList<Territory>();
         continent = c;
         name = n;
-        troops = 0;
+        troops = 10;
         owner = -1;
+        checked = false;
     }
 
     /**
@@ -143,5 +146,10 @@ public class Territory {
     public ArrayList<Territory> getAdjacents() {
         return adjacents;
     }
+
+    public boolean equals(Territory other) {
+        return this.name.equals(other.name);
+    }
+
 
 }
