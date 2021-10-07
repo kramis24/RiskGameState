@@ -111,18 +111,26 @@ public class RiskGameState {
      * STILL IN PROGRESS RUNNING INTO ERRORS
      */
     public void setTerritoryPlayers () {
-            ArrayList<Territory> tempTerr = territories;
-            Random rnd = new Random();
+            ArrayList<Integer> tempTerr = new ArrayList<>();
             for (int i = 0; i < territories.size(); i++) {
-                int rNum = rnd.nextInt(tempTerr.size());
-                territories.get(rNum).setOwner(i%playerCount); //set a random territory to a player (cycle through players)
-                territories.get(rNum).setTroops(1); //all newly claimed territories must have at least 1 troop
-                tempTerr.remove(rNum); //this still can have a territory called another time
-                //How to go through list of territories at random without deleting array?
+                tempTerr.add(i);
             }
+            Collections.shuffle(tempTerr);
+            for (int i = 0; i < tempTerr.size(); i++) {
+                territories.get(tempTerr.get(i)).setOwner(i%playerCount);
+                territories.get(tempTerr.get(i)).setTroops(1);
+            }
+               //set a random territory to a player (cycle through players)
+                //all newly claimed territories must have at least 1 troop
+
+                //How to go through list of territories at random without deleting array?
+
         }
 
         public void setStartTroops() {
+            int[] troopsDeployed = new int[playerCount];
+            //loop through territories
+            //add to each troopsDeployed[.getowner]++
             int startTroops = (50 - (5 *(playerCount)));
             while (startTroops > 0) {
                 //set each player with starting troop count
@@ -233,6 +241,37 @@ public class RiskGameState {
         return false;
     }
 
+    public boolean checkChain(Territory t1, Territory t2) {
+        if (t1.getOwner() == t2.getOwner()) {
+            for (int i = 0; i < territories.size(); i++) {
+                territories.get(i).checked = false;
+            }
+            return checkHelper(t1, t2);
+        }
+        return false;
+    }
+
+    private boolean checkHelper(Territory t1, Territory t2) {
+        boolean ans = false;
+        for (int i = 0; i < t1.getAdjacents().size(); i++) {
+            if (t1.getAdjacents().get(i).getOwner() == t1.getOwner()) {
+                //if it is owned by the same player
+                if (!t1.getAdjacents().get(i).checked) {
+                    t1.getAdjacents().get(i).checked = true;
+                    if (t1.getAdjacents().get(i).equals(t2)) {
+                        return true;
+                    } else {
+                        if (checkHelper(t1.getAdjacents().get(i), t2)) {
+                            ans = true;
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+
+    //
     /* No GUI yet so these methods cannot be implemented
     public void viewStats() {
     }

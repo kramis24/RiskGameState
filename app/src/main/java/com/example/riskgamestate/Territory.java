@@ -32,6 +32,7 @@ public class Territory {
     private Continent continent;
     private String name;
     private int owner;
+    public boolean checked;
 
     /**
      * Default constructor for Territory.
@@ -47,6 +48,7 @@ public class Territory {
         name = n;
         troops = 10;
         owner = -1;
+        checked = false;
     }
 
     /**
@@ -144,5 +146,10 @@ public class Territory {
     public ArrayList<Territory> getAdjacents() {
         return adjacents;
     }
+
+    public boolean equals(Territory other) {
+        return this.name.equals(other.name);
+    }
+
 
 }
