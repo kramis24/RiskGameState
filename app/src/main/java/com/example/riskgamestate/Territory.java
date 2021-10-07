@@ -7,6 +7,8 @@ package com.example.riskgamestate;
  * @version 10/6/2021
  */
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -147,9 +149,39 @@ public class Territory {
         return adjacents;
     }
 
+    /**
+     * equals
+     * Checks if two territories are equal by name.
+     *
+     * @param other territory being compared
+     * @return true if territories equal
+     */
     public boolean equals(Territory other) {
         return this.name.equals(other.name);
     }
 
+    /*
+    public boolean equals(Territory other) {
+
+        // checks if adjacent lists are different sizes
+        if (this.adjacents.size() != other.adjacents.size()) return false;
+
+        // checks adjacents individually, adjacents of adjacents are not checked as
+        // that would would require infinite complexity
+        for (Territory a : this.adjacents) {
+            int b = this.adjacents.indexOf(a);
+            if (a.continent != other.adjacents.get(b).continent) return false;
+            if (!a.name.equals(other.adjacents.get(b).name)) return false;
+            if (a.troops != other.adjacents.get(b).troops) return false;
+            if (a.owner != other.adjacents.get(b).owner) return false;
+        }
+
+        // compares other stuff for return
+        return ((this.continent == other.continent)
+             && (this.name.equals(other.name))
+             && (this.troops == other.troops)
+             && (this.owner == other.owner));
+    }
+    */
 
 }

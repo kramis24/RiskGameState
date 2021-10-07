@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * onCreate
-     * Runs upon startup, sets up button used to tests.
+     * Runs upon startup, sets up the button used to tests.
      *
      * @param savedInstanceState
      */
