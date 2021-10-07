@@ -16,8 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     /**
-     * MainActivity
+     * onCreate
+     * Runs upon startup, sets up button used to tests.
      *
      * @param savedInstanceState
      */
@@ -31,8 +33,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView testView = findViewById(R.id.testView);
         testButton.setOnClickListener(this);
 
-     }
+    }
 
+    /**
+     * onClick
+     * Runs tests when the button is clicked.
+     *
+     * @param view button clicked
+     */
     @Override
     public void onClick(View view) {
 
