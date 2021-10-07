@@ -96,8 +96,8 @@ public class RiskGameState {
     //}
 
 
-    //initialize begingin troops
-    //intitialize territories or each player
+    //initialize beginning troops
+    //initializes territories or each player
 
     public boolean attack(Territory atk, Territory def) {
         if (currentTurn == atk.getOwner() && currentTurn != def.getOwner()) { //checks that the player is not trying to attack themselves
@@ -189,14 +189,17 @@ public class RiskGameState {
      * returns true if move was done successfully
      **/
     public boolean fortify(Territory t1, Territory t2, int troops) {
-        if (currentTurn == t1.getOwner() && currentTurn == t2.getOwner()) { //checks if both territories are owned by player
-            if (t1.getTroops() - troops > 1) { //makes sure that you cannot send more troops than you have
-                t1.setTroops(t1.getTroops() - troops);
-                t2.setTroops(t2.getTroops() + troops);
-                nextTurn();
-                return true;
-            } else {
-                return false;
+        if(t1.getAdjacents().contains(t2)) {
+            if (currentTurn == t1.getOwner() && currentTurn == t2.getOwner()) { //checks if both territories are owned by player
+                if (t1.getTroops() - troops > 1) { //makes sure that you cannot send more troops than you have
+                    t1.setTroops(t1.getTroops() - troops);
+                    t2.setTroops(t2.getTroops() + troops);
+                    nextTurn();
+                    return true;
+
+                } else {
+                    return false;
+                }
             }
         }
         return false;

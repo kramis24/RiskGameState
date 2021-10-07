@@ -46,7 +46,7 @@ public class Territory {
         continent = c;
         name = n;
         troops = 10;
-        owner = -1;
+        owner = 1;
     }
 
     /**

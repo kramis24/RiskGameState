@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ArrayList<Territory> territories = firstInstance.getT();
         firstInstance.nextTurn();
         firstInstance.nextTurn();
-        firstInstance.nextTurn();
+        firstInstance.fortify(firstInstance.getT().get(0),firstInstance.getT().get(1),10 );
         RiskGameState secondInstance = new RiskGameState(firstInstance);
         outputText.setText(firstInstance.toString());
         outputText.append(secondInstance.toString());
