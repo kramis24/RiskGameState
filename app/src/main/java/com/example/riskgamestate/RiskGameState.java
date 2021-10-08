@@ -35,8 +35,9 @@ public class RiskGameState {
     }
 
     // instance variables
+    private int playerId;
     private int playerCount = 1;
-    private int currentTurn = 1;
+    private int currentTurn = 0;
     private Phase currentPhase = Phase.DEPLOY;
     private int totalTroops = 0;
     private ArrayList<Territory> territories;
@@ -51,6 +52,8 @@ public class RiskGameState {
 
         // initialize territories and add adjacents to each territory
         initTerritories();
+        territories.get(0).setOwner(0);
+        territories.get(1).setOwner(1);
     }
 
     /**
@@ -193,17 +196,21 @@ public class RiskGameState {
                 }
 
                 //stores the die rolls into arraylist
-                ArrayList<Integer> rollsAtk = new ArrayList<>();
-                ArrayList<Integer> rollsDef = new ArrayList<>();
+                ArrayList<Integer> rollsAtk = rollDie(numRollsAtk);
+                ArrayList<Integer> rollsDef = rollDie(numRollsDef);
 
-                //sorts the die rolls
+                //sorts the die rolls from greatest to least
                 Collections.sort(rollsAtk);
                 Collections.sort(rollsDef);
+                Collections.reverse(rollsAtk);
+                Collections.reverse(rollsDef);
 
                 //compares the die rolls of the two players
                 if (numRollsAtk == 1) {
                     numRollsDef = numRollsAtk;
                 }
+
+
                 for (int i = 0; i < numRollsDef; i++) {
                     if (rollsAtk.get(i) > rollsDef.get(i)) {
                         def.setTroops(def.getTroops() - 1);
@@ -217,8 +224,9 @@ public class RiskGameState {
                     def.setOwner(atk.getOwner());
                     occupy(def, 1); //1 is a placeholder
                 }
+                return true;
             }
-            return true;
+            return false;
         } else {
             return false;
         }
@@ -268,13 +276,15 @@ public class RiskGameState {
      **/
     public boolean fortify(Territory t1, Territory t2, int troops) {
         if (currentTurn == t1.getOwner() && currentTurn == t2.getOwner()) { //checks if both territories are owned by player
-            if (t1.getTroops() - troops > 1) { //makes sure that you cannot send more troops than you have
-                t1.setTroops(t1.getTroops() - troops);
-                t2.setTroops(t2.getTroops() + troops);
-                nextTurn();
-                return true;
-            } else {
-                return false;
+            if(checkChain(t1,t2)) {
+                if (t1.getTroops() - troops > 1) { //makes sure that you cannot send more troops than you have
+                    t1.setTroops(t1.getTroops() - troops);
+                    t2.setTroops(t2.getTroops() + troops);
+                    nextTurn();
+                    return true;
+                } else {
+                    return true;
+                }
             }
         }
         return false;
@@ -340,11 +350,12 @@ public class RiskGameState {
         else {
             currentPhase = Phase.DEPLOY;
             currentTurn++;// end of turn
+            calcTroops(currentTurn); //gives the player a determined amount of troops.
         }
 
         // iteration through players
         if(currentTurn/playerCount == 1 ) {
-            currentTurn = 1;
+            currentTurn = 0;
         }
 
         return true;

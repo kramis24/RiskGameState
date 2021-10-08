@@ -54,12 +54,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // runs tests
         outputText.append("Starting tests.\n");
         RiskGameState firstInstance = new RiskGameState();
-        ArrayList<Territory> territories = firstInstance.getT();
         firstInstance.nextTurn();
         firstInstance.nextTurn();
-        firstInstance.fortify(firstInstance.getT().get(0),firstInstance.getT().get(1),10 );
+        firstInstance.fortify(firstInstance.getT().get(0),firstInstance.getT().get(10),10);
+        firstInstance.attack(firstInstance.getT().get(0),firstInstance.getT().get(1));
         RiskGameState secondInstance = new RiskGameState(firstInstance);
         outputText.setText(firstInstance.toString());
         outputText.append(secondInstance.toString());
+
     }
 }
