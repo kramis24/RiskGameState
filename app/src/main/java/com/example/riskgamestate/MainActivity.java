@@ -83,10 +83,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // prints game state
         outputText.append(firstInstance.toString());
 
-        //
-        firstInstance.nextTurn();
-        firstInstance.fortify(firstInstance.getT().get(0),firstInstance.getT().get(1),10 );
+        // copying game state
+        outputText.append("Copying game state.\n");
         RiskGameState secondInstance = new RiskGameState(firstInstance);
+
+        // attacks venezuela from central america
+        outputText.append("Attacking Venezuela from Central America.\n");
+        firstInstance.attack(firstInstance.getT().get(8), firstInstance.getT().get(9));
+        firstInstance.nextTurn();
+
+        // prints game state
+        outputText.append(firstInstance.toString());
+
+        // fortifies central america from eastern united states with 7 troops
+        firstInstance.fortify(firstInstance.getT().get(7),firstInstance.getT().get(8),7 );
+
+        // prints game states
         outputText.append(firstInstance.toString());
         outputText.append(secondInstance.toString());
     }

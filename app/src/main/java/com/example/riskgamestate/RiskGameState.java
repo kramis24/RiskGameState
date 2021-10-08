@@ -37,7 +37,7 @@ public class RiskGameState {
     // instance variables
     private int playerId;
     private int playerCount = 1;
-    private int currentTurn = 0;
+    private int currentTurn = 1;
     private Phase currentPhase = Phase.DEPLOY;
     private int totalTroops = 100;
     private ArrayList<Territory> territories;
@@ -214,7 +214,7 @@ public class RiskGameState {
                 for (int i = 0; i < numRollsDef; i++) {
                     if (rollsAtk.get(i) > rollsDef.get(i)) {
                         def.setTroops(def.getTroops() - 1);
-                    } else if (rollsAtk.get(i) >= rollsDef.get(i)) {
+                    } else if (rollsAtk.get(i) <= rollsDef.get(i)) {
                         atk.setTroops(atk.getTroops() - 1);
                     }
                 }
