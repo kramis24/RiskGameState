@@ -65,40 +65,40 @@ public class RiskGameState {
         int territoryCount = 0; //set counter for player territories
         int[] territoryCounts = new int[6]; //set counter for territories for each Continent
         for (int i = 0; i < territories.size(); i++) {
-            if (territories.get(i).getOwner() == player) {
+            if (territories.get(i).getOwner() == player) { //if a territory is owned by a player add to territory count
                 territoryCount++;
-                territoryCounts[territories.get(i).getContinent().ordinal()]++;
+                territoryCounts[territories.get(i).getContinent().ordinal()]++; //count number of territories owned in each continent
             }
         }
 
-        territoryCount = ((territoryCount - 11)/3) + 3; //calculation for troops
+        int troopCount = ((territoryCount - 11)/3) + 3; //calculation for troops
 
-        //continent bonus
+        //check for continent bonuses (if a player has all territories in a continent)
         if (territoryCounts[Territory.Continent.ASIA.ordinal()] == 12) {
-            territoryCount = territoryCount + 7;
+            troopCount = troopCount + 7;
         }
         if (territoryCounts[Territory.Continent.AFRICA.ordinal()] == 6) {
-            territoryCount = territoryCount + 3;
+            troopCount = troopCount + 3;
         }
         if (territoryCounts[Territory.Continent.SOUTH_AMERICA.ordinal()] == 4) {
-            territoryCount = territoryCount + 2;
+            troopCount = troopCount + 2;
         }
         if (territoryCounts[Territory.Continent.NORTH_AMERICA.ordinal()] == 9) {
-            territoryCount = territoryCount + 5;
+            troopCount = troopCount + 5;
         }
         if (territoryCounts[Territory.Continent.EUROPE.ordinal()] == 7) {
-            territoryCount = territoryCount + 5;
+            troopCount = troopCount + 5;
         }
         if (territoryCounts[Territory.Continent.OCEANIA.ordinal()] == 4) {
-            territoryCount = territoryCount + 2;
+            troopCount = troopCount + 2;
         }
 
-        return territoryCount;
+        return troopCount; //return number of troops given at the start of the round
     }
 
     /**
      * adds a given number of troops to a given territory
-     * @param t
+     * Parameters: territory (to add troops to), int (number of troops being added)
      * @param add
      */
     public void addTroop(Territory t, int add) {
@@ -108,36 +108,41 @@ public class RiskGameState {
     /**
      * Sets up the map for risk gameplay by randomly assigning territories to each player
      * Void method no paramenters
-     * STILL IN PROGRESS RUNNING INTO ERRORS
      */
     public void setTerritoryPlayers () {
-            ArrayList<Integer> tempTerr = new ArrayList<>();
+            ArrayList<Integer> tempTerr = new ArrayList<>(); //create temp list for territory's indexes
             for (int i = 0; i < territories.size(); i++) {
-                tempTerr.add(i);
+                tempTerr.add(i); //set index number for each territory
             }
-            Collections.shuffle(tempTerr);
-            for (int i = 0; i < tempTerr.size(); i++) {
-                territories.get(tempTerr.get(i)).setOwner(i%playerCount);
-                territories.get(tempTerr.get(i)).setTroops(1);
-            }
-               //set a random territory to a player (cycle through players)
-                //all newly claimed territories must have at least 1 troop
-
-                //How to go through list of territories at random without deleting array?
-
-        }
-
-        public void setStartTroops() {
-            int[] troopsDeployed = new int[playerCount];
-            //loop through territories
-            //add to each troopsDeployed[.getowner]++
-            int startTroops = (50 - (5 *(playerCount)));
-            while (startTroops > 0) {
-                //set each player with starting troop count
-                //for every territory a player has remove one of their starting troops
-                //cyclr through each players territoires and randomly select them to add one troop at a time
+            Collections.shuffle(tempTerr); //shuffle the index numbers of territories
+            for (int i = 0; i < tempTerr.size(); i++) {  //cycling through players till there are no territories are left
+                territories.get(tempTerr.get(i)).setOwner(i%playerCount); //set a random territory to players
+                territories.get(tempTerr.get(i)).setTroops(1); //set each newly territory to 1 troop (each territory must have a troop)
             }
         }
+
+    /**
+     * Randomly deploys each player's starting troops to their territories
+     * No parameters
+     */
+    public void setStartTroops() {
+        int[] troopsDeployed = new int[playerCount]; //create array to store each player's troop deployment number
+        int startTroops = (50 - (5 *(playerCount))); //set the number of troops that each player gets to start (dependant on number of players)
+        Random rnd = new Random();
+        int rNum = rnd.nextInt();
+        for(int i = 0; i < territories.size(); i++) { //for each territory owned by a player,
+            //add 1 to their deployed troops count (as each initialized territory was given one troop automatically
+            troopsDeployed[territories.get(i).getOwner()]++;
+        }
+        for (int i = 0; i < troopsDeployed.length; i++) {
+            while (troopsDeployed[i] < startTroops + 1) { //while each player has not yet deployed given number of troops
+                if (territories.get(rNum).getOwner() == i) { //deploy a troop to a random territory owned by the selected player
+                    addTroop(territories.get(i), 1);
+                    troopsDeployed[i]++; //increase deployed troop count for this player
+                }
+            }
+        }
+    }
 
     public boolean attack(Territory atk, Territory def) {
         if (currentTurn == atk.getOwner() && currentTurn != def.getOwner()) { //checks that the player is not trying to attack themselves
@@ -155,7 +160,7 @@ public class RiskGameState {
                 }
 
                 //determines how many die the defender has
-                if (def.getTroops() >= 3) {
+                if (def.getTroops() >= 2) {
                     numRollsDef = 2;
                 } else {
                     numRollsDef = 1;
@@ -197,7 +202,7 @@ public class RiskGameState {
          * Takes player, territory and number of troops as parameters
          * Returns true if move was legal
          **/
-        //for occupy change total troops to terriories troop
+        //for occupy change total troops to territories troop
         public boolean deploy(Territory t,int troops) {
             if(currentTurn == t.getOwner() && totalTroops - troops > 0) { //checks that the current territory is owned by the player
                 addTroop(t,troops);
@@ -241,34 +246,43 @@ public class RiskGameState {
         return false;
     }
 
+    /**
+     * Checks if two territories are connected by a chain of territories that the player has
+     * Parameters: Territory (starting chain), Territory (ending part of chain)
+     * @return
+     */
     public boolean checkChain(Territory t1, Territory t2) {
-        if (t1.getOwner() == t2.getOwner()) {
-            for (int i = 0; i < territories.size(); i++) {
+        if (t1.getOwner() == t2.getOwner()) { //check if the territories are owned by the same player, if not return false
+            for (int i = 0; i < territories.size(); i++) { //set all territories to unchecked (haven't been looked at yet)
                 territories.get(i).checked = false;
             }
-            return checkHelper(t1, t2);
+            return checkHelper(t1, t2); //call helper method to search through adjacent arrays
         }
         return false;
     }
 
+    /**
+     * Helper method to check if two territories create a chain of adjacent territories that connect
+     * @return
+     */
     private boolean checkHelper(Territory t1, Territory t2) {
-        boolean ans = false;
+        boolean ans = false; ///assume both territories aren't connected
         for (int i = 0; i < t1.getAdjacents().size(); i++) {
             if (t1.getAdjacents().get(i).getOwner() == t1.getOwner()) {
-                //if it is owned by the same player
-                if (!t1.getAdjacents().get(i).checked) {
-                    t1.getAdjacents().get(i).checked = true;
+                //if adjacent is owned by the same player as initial territory
+                if (!t1.getAdjacents().get(i).checked) { //check to see if this territory has been scanned (for being in the chain) yet
+                    t1.getAdjacents().get(i).checked = true; //this territory will now be scanned for being in the chain
                     if (t1.getAdjacents().get(i).equals(t2)) {
-                        return true;
+                        return true; //if adjacent territory is the territory that is the end of the chain, return true
                     } else {
-                        if (checkHelper(t1.getAdjacents().get(i), t2)) {
+                        if (checkHelper(t1.getAdjacents().get(i), t2)) { //recursively call this function and ask if it returns true
                             ans = true;
                         }
                     }
                 }
             }
         }
-        return ans;
+        return ans; //return if territories are connected by a chain
     }
 
     //
