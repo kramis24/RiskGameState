@@ -39,7 +39,7 @@ public class RiskGameState {
     private int playerCount = 1;
     private int currentTurn = 0;
     private Phase currentPhase = Phase.DEPLOY;
-    private int totalTroops = 0;
+    private int totalTroops = 100;
     private ArrayList<Territory> territories;
 
     /**
@@ -52,6 +52,7 @@ public class RiskGameState {
 
         // initialize territories and add adjacents to each territory
         initTerritories();
+
         territories.get(0).setOwner(0);
         territories.get(1).setOwner(1);
     }
@@ -205,16 +206,17 @@ public class RiskGameState {
                 Collections.reverse(rollsAtk);
                 Collections.reverse(rollsDef);
 
-                //compares the die rolls of the two players
+                //compares the die rolls of the two players to determine how many comparison
                 if (numRollsAtk == 1) {
                     numRollsDef = numRollsAtk;
                 }
 
 
+                //compares the highest rolls of the players to determine how many troops they lose
                 for (int i = 0; i < numRollsDef; i++) {
                     if (rollsAtk.get(i) > rollsDef.get(i)) {
                         def.setTroops(def.getTroops() - 1);
-                    } else if (rollsAtk.get(i) >= rollsDef.get(i)) {
+                    } else if (rollsDef.get(i) >= rollsAtk.get(i)) {
                         atk.setTroops(atk.getTroops() - 1);
                     }
                 }
@@ -350,7 +352,7 @@ public class RiskGameState {
         else {
             currentPhase = Phase.DEPLOY;
             currentTurn++;// end of turn
-            calcTroops(currentTurn); //gives the player a determined amount of troops.
+            totalTroops = calcTroops(currentTurn); //gives the player a determined amount of troops.
         }
 
         // iteration through players
@@ -393,7 +395,7 @@ public class RiskGameState {
      */
     public String toString() {
 
-        String info = "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n";
+        String info = "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n" + "Troops for Deployment: " + totalTroops + "\n";
         info = info + "____________________________ \n";
         for (Territory t : territories) {
             info = info + "Territory: " + t.getName() + "\n";
