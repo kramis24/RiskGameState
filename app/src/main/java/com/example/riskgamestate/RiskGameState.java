@@ -153,7 +153,7 @@ public class RiskGameState {
         int[] troopsDeployed = new int[playerCount]; //create array to store each player's troop deployment number
         int startTroops = (50 - (5 *(playerCount))); //set the number of troops that each player gets to start (dependant on number of players)
         Random rnd = new Random();
-        int rNum = rnd.nextInt();
+        int rNum = rnd.nextInt(territories.size());
         for(int i = 0; i < territories.size(); i++) { //for each territory owned by a player,
             //add 1 to their deployed troops count (as each initialized territory was given one troop automatically
             troopsDeployed[territories.get(i).getOwner()]++;
