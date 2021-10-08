@@ -7,7 +7,6 @@ package com.example.riskgamestate;
  * @version 10/6/2021
  */
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -36,7 +35,7 @@ public class RiskGameState {
 
     // instance variables
     private int playerId;
-    private int playerCount = 1;
+    private int playerCount = 4;
     private int currentTurn = 0;
     private Phase currentPhase = Phase.DEPLOY;
     private int totalTroops = 100;
@@ -53,8 +52,7 @@ public class RiskGameState {
         // initialize territories and add adjacents to each territory
         initTerritories();
 
-        territories.get(0).setOwner(0);
-        territories.get(1).setOwner(1);
+        setTerritoryPlayers();
     }
 
     /**
@@ -148,18 +146,19 @@ public class RiskGameState {
      * setStartTroops
      * Randomly deploys each player's starting troops to their territories
      * No parameters
+     * FIX: method causes program to freeze and crash, no error message printed
      */
     public void setStartTroops() {
         int[] troopsDeployed = new int[playerCount]; //create array to store each player's troop deployment number
         int startTroops = (50 - (5 *(playerCount))); //set the number of troops that each player gets to start (dependant on number of players)
         Random rnd = new Random();
-        int rNum = rnd.nextInt();
+        int rNum = rnd.nextInt(territories.size());
         for(int i = 0; i < territories.size(); i++) { //for each territory owned by a player,
             //add 1 to their deployed troops count (as each initialized territory was given one troop automatically
             troopsDeployed[territories.get(i).getOwner()]++;
         }
         for (int i = 0; i < troopsDeployed.length; i++) {
-            while (troopsDeployed[i] < startTroops + 1) { //while each player has not yet deployed given number of troops
+            while (troopsDeployed[i] < startTroops) { //while each player has not yet deployed given number of troops
                 if (territories.get(rNum).getOwner() == i) { //deploy a troop to a random territory owned by the selected player
                     addTroop(territories.get(i), 1);
                     troopsDeployed[i]++; //increase deployed troop count for this player
