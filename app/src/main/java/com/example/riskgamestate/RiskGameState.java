@@ -292,6 +292,15 @@ public class RiskGameState {
         return false;
     }
 
+
+    /**
+     * checkChain and checkHelper
+     * Checks if two territories, t1 and t2, are connected by allied territories
+     *
+     * @param t1
+     * @param t2
+     * @return returns true if the two territories are connected
+     */
     public boolean checkChain(Territory t1, Territory t2) {
         if (t1.getOwner() == t2.getOwner()) {
             for (int i = 0; i < territories.size(); i++) {

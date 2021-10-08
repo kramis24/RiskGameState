@@ -51,12 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EditText outputText = findViewById(R.id.outputText);
 
 
-        // runs tests
+        //runs tests
         outputText.append("Starting tests.\n");
         RiskGameState firstInstance = new RiskGameState();
         firstInstance.nextTurn();
         firstInstance.nextTurn();
-        firstInstance.fortify(firstInstance.getT().get(0),firstInstance.getT().get(10),10);
         firstInstance.attack(firstInstance.getT().get(0),firstInstance.getT().get(1));
         RiskGameState secondInstance = new RiskGameState(firstInstance);
         outputText.setText(firstInstance.toString());
