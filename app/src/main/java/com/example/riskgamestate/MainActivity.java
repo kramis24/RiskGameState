@@ -4,17 +4,14 @@ package com.example.riskgamestate;
  * Sets layouts and runs tests.
  *
  * @author Phi Nguyen, Dylan Kramis, Charlie Benning
- * @version 10/6/2021
+ * @version 10/7/2021
  */
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -32,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // initializes layout elements
         Button testButton = findViewById(R.id.runTest);
-        TextView testView = findViewById(R.id.testView);
         testButton.setOnClickListener(this);
 
     }

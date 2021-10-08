@@ -4,13 +4,10 @@ package com.example.riskgamestate;
  * Variables and methods for individual territories.
  *
  * @author Phi Nguyen, Dylan Kramis, Charlie Benning
- * @version 10/6/2021
+ * @version 10/7/2021
  */
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Territory {
 

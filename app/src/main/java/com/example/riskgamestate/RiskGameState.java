@@ -4,10 +4,9 @@ package com.example.riskgamestate;
  * Game state variables and methods for Risk game.
  *
  * @author Phi Nguyen, Dylan Kramis, Charlie Benning
- * @version 10/6/2021
+ * @version 10/7/2021
  */
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -26,7 +25,8 @@ public class RiskGameState {
 
     /**
      * Card
-     * Indicates card type.
+     * Indicates card types.
+     *
      */
     public enum Card {
         INFANTRY,
