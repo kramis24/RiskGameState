@@ -38,7 +38,7 @@ public class RiskGameState {
     private int playerCount = 1;
     private int currentTurn = 1;
     private Phase currentPhase = Phase.DEPLOY;
-    private int totalTroops = 0;
+    private int totalTroops = 100;
     private ArrayList<Territory> territories;
 
     /**
@@ -382,7 +382,9 @@ public class RiskGameState {
      */
     public String toString() {
 
-        String info = "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n";
+        String info = "-----CURRENT GAME STATE----- \n";
+        info = info + "____________________________ \n";
+        info = info + "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n";
         info = info + "____________________________ \n";
         for (Territory t : territories) {
             info = info + "Territory: " + t.getName() + "\n";
@@ -404,6 +406,14 @@ public class RiskGameState {
     public ArrayList<Territory> getT() {
         return this.territories;
     }
+
+    /**
+     * getCurrentTurn
+     * Gets the current turn.
+     *
+     * @return current turn
+     */
+    public int getCurrentTurn() { return currentTurn; }
 
     /**
      * initTerritories

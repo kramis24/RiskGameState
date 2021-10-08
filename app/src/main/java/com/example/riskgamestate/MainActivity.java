@@ -53,13 +53,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // runs tests
         outputText.append("Starting tests.\n");
+
+        // initializes game state
+        outputText.append("Initializing game state.\n");
         RiskGameState firstInstance = new RiskGameState();
+
+        // retrieves territories
+        outputText.append("Getting territories.\n");
         ArrayList<Territory> territories = firstInstance.getT();
+
+        // gives player 1 all of north america for testing purposes
+        for (int i = 0; i < 9; i++) {
+            firstInstance.getT().get(i).setOwner(1);
+        }
+
+        // gives player 2 all of south america for testing purposes
+        for (int i = 9; i < 13; i++) {
+            firstInstance.getT().get(i).setOwner(2);
+        }
+
+        // prints initial game state
+        outputText.append(firstInstance.toString());
+
+        // deploys 5 troops to alaska
+        outputText.append("Deploying 5 troops to Alaska.\n");
+        firstInstance.deploy(firstInstance.getT().get(0), 5);
         firstInstance.nextTurn();
+
+        // prints game state
+        outputText.append(firstInstance.toString());
+
+        //
         firstInstance.nextTurn();
         firstInstance.fortify(firstInstance.getT().get(0),firstInstance.getT().get(1),10 );
         RiskGameState secondInstance = new RiskGameState(firstInstance);
-        outputText.setText(firstInstance.toString());
+        outputText.append(firstInstance.toString());
         outputText.append(secondInstance.toString());
     }
 }
