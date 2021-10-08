@@ -36,8 +36,8 @@ public class RiskGameState {
 
     // instance variables
     private int playerId;
-    private int playerCount = 1;
-    private int currentTurn = 0;
+    private int playerCount = 2;
+    private int currentTurn = 1;
     private Phase currentPhase = Phase.DEPLOY;
     private int totalTroops = 100;
     private ArrayList<Territory> territories;
@@ -52,9 +52,6 @@ public class RiskGameState {
 
         // initialize territories and add adjacents to each territory
         initTerritories();
-
-        territories.get(0).setOwner(0);
-        territories.get(1).setOwner(1);
     }
 
     /**
@@ -72,7 +69,10 @@ public class RiskGameState {
         this.playerCount = other.playerCount;
         this.currentPhase = other.currentPhase;
         this.totalTroops = other.totalTroops;
-        this.territories.addAll(other.territories);
+        for (Territory t : other.territories) {
+            Territory newTerritory = new Territory(t);
+            this.territories.add(newTerritory);
+        }
     }
 
     /**
@@ -209,7 +209,7 @@ public class RiskGameState {
                 Collections.reverse(rollsAtk);
                 Collections.reverse(rollsDef);
 
-                //compares the die rolls of the two players to determine how many comparison
+                //compares the die rolls of the two players to determine how many comparisons to do
                 if (numRollsAtk == 1) {
                     numRollsDef = numRollsAtk;
                 }
@@ -371,7 +371,7 @@ public class RiskGameState {
 
         // iteration through players
         if(currentTurn/playerCount == 1 ) {
-            currentTurn = 0;
+            currentTurn = 1;
         }
 
         return true;
@@ -409,7 +409,9 @@ public class RiskGameState {
      */
     public String toString() {
 
-        String info = "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n" + "Troops for Deployment: " + totalTroops + "\n";
+        String info = "-----CURRENT GAME STATE----- \n";
+        info = info + "____________________________ \n";
+        info = info + "Current Phase: " + currentPhase + "\n" + "Current Turn: " + currentTurn + "\n";
         info = info + "____________________________ \n";
         for (Territory t : territories) {
             info = info + "Territory: " + t.getName() + "\n";
@@ -431,6 +433,14 @@ public class RiskGameState {
     public ArrayList<Territory> getT() {
         return this.territories;
     }
+
+    /**
+     * getCurrentTurn
+     * Gets the current turn.
+     *
+     * @return current turn
+     */
+    public int getCurrentTurn() { return currentTurn; }
 
     /**
      * initTerritories

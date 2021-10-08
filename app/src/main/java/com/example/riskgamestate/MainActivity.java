@@ -53,14 +53,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // runs tests
         outputText.append("Starting tests.\n");
-        RiskGameState firstInstance = new RiskGameState();
-        firstInstance.nextTurn();
-        firstInstance.nextTurn();
-        firstInstance.fortify(firstInstance.getT().get(0),firstInstance.getT().get(10),10);
-        firstInstance.attack(firstInstance.getT().get(0),firstInstance.getT().get(1));
-        RiskGameState secondInstance = new RiskGameState(firstInstance);
-        outputText.setText(firstInstance.toString());
-        outputText.append(secondInstance.toString());
 
+        // initializes game state
+        outputText.append("Initializing game state.\n");
+        RiskGameState firstInstance = new RiskGameState();
+
+        // retrieves territories
+        outputText.append("Getting territories.\n");
+        ArrayList<Territory> territories = firstInstance.getT();
+
+        // gives player 1 all of north america for testing purposes
+        for (int i = 0; i < 9; i++) {
+            firstInstance.getT().get(i).setOwner(1);
+        }
+
+        // gives player 2 all of south america for testing purposes
+        for (int i = 9; i < 13; i++) {
+            firstInstance.getT().get(i).setOwner(2);
+        }
+
+        // prints initial game state
+        outputText.append(firstInstance.toString());
+
+        // deploys 5 troops to alaska
+        outputText.append("Deploying 5 troops to Alaska.\n");
+        firstInstance.deploy(firstInstance.getT().get(0), 5);
+        firstInstance.nextTurn();
+
+        // prints game state
+        outputText.append(firstInstance.toString());
+
+        // copying game state
+        outputText.append("Copying game state.\n");
+        RiskGameState secondInstance = new RiskGameState(firstInstance);
+
+        // attacks venezuela from central america
+        outputText.append("Attacking Venezuela from Central America.\n");
+        firstInstance.attack(firstInstance.getT().get(8), firstInstance.getT().get(9));
+        firstInstance.nextTurn();
+
+        // prints game state
+        outputText.append(firstInstance.toString());
+
+        // fortifies central america from eastern united states with 7 troops
+        firstInstance.fortify(firstInstance.getT().get(7),firstInstance.getT().get(8),7 );
+
+        // prints game states
+        outputText.append("Original Game State:\n");
+        outputText.append(firstInstance.toString());
+        outputText.append("Game state copied before attacking Venezuela:\n");
+        outputText.append(secondInstance.toString());
     }
 }
