@@ -36,7 +36,7 @@ public class RiskGameState {
 
     // instance variables
     private int playerId;
-    private int playerCount = 1;
+    private int playerCount = 2;
     private int currentTurn = 1;
     private Phase currentPhase = Phase.DEPLOY;
     private int totalTroops = 100;
@@ -69,7 +69,10 @@ public class RiskGameState {
         this.playerCount = other.playerCount;
         this.currentPhase = other.currentPhase;
         this.totalTroops = other.totalTroops;
-        this.territories.addAll(other.territories);
+        for (Territory t : other.territories) {
+            Territory newTerritory = new Territory(t);
+            this.territories.add(newTerritory);
+        }
     }
 
     /**
@@ -354,7 +357,7 @@ public class RiskGameState {
 
         // iteration through players
         if(currentTurn/playerCount == 1 ) {
-            currentTurn = 0;
+            currentTurn = 1;
         }
 
         return true;

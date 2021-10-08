@@ -99,7 +99,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         firstInstance.fortify(firstInstance.getT().get(7),firstInstance.getT().get(8),7 );
 
         // prints game states
+        outputText.append("Original Game State:\n");
         outputText.append(firstInstance.toString());
+        outputText.append("Game state copied before attacking Venezuela:\n");
         outputText.append(secondInstance.toString());
     }
 }
