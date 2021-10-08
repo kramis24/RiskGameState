@@ -18,8 +18,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     /**
-     * MainActivity
+     * onCreate
+     * Runs upon startup, sets up the button used to tests.
      *
      * @param savedInstanceState
      */
@@ -32,8 +34,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button testButton = findViewById(R.id.runTest);
         TextView testView = findViewById(R.id.testView);
         testButton.setOnClickListener(this);
-     }
 
+    }
+
+    /**
+     * onClick
+     * Runs tests when the button is clicked.
+     *
+     * @param view button clicked
+     */
     @Override
     public void onClick(View view) {
 
